@@ -11,7 +11,7 @@ buildscript {
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:8.1.0")
+        classpath("com.android.tools.build:gradle:8.1.4")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version")
     }
 }
@@ -32,13 +32,20 @@ android {
 
     compileSdk = 35
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+//    compileOptions {
+//        sourceCompatibility = JavaVersion.VERSION_11
+//        targetCompatibility = JavaVersion.VERSION_11
+//    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "1.5.3" // Use the same version as your Compose library
     }
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_11
+    }
+
+    buildFeatures {
+        compose = true
     }
 
     sourceSets {
@@ -52,16 +59,22 @@ android {
 
     dependencies {
         testImplementation("org.jetbrains.kotlin:kotlin-test")
-//        implementation 'com.github.markusfisch:CameraView:1.10.0'
-//        implementation 'com.github.markusfisch:zxing-cpp:v2.2.0.5'
         implementation("io.github.zxing-cpp:android:2.2.0")
-        implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0"
-        // Support
-        implementation "com.android.support:appcompat-v7:$support_version"
-        implementation "com.android.support:design:$support_version"
-        implementation "com.android.support:preference-v7:$support_version"
-        implementation "com.android.support:preference-v14:$support_version"
-        testImplementation("org.mockito:mockito-core:5.0.0")
+
+        // camera
+        implementation("androidx.camera:camera-core:1.4.1")
+        implementation("androidx.camera:camera-view:1.4.1")
+
+        // zxing
+        implementation ("io.github.zxing-cpp:android:2.2.0")
+
+        implementation "androidx.activity:activity-compose:1.9.3" // Replace with the latest version
+
+        // Add Compose UI dependencies if not already added
+        implementation "androidx.compose.ui:ui:1.7.6" // Compose UI toolkit
+        implementation "androidx.compose.material:material:1.7.6" // Material Design components
+        implementation "androidx.compose.ui:ui-tooling-preview:1.7.6" // Preview support
+
     }
 
 
